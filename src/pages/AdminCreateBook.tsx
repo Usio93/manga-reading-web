@@ -3,7 +3,7 @@ import "../styles/AdminCreateBook/AdminCreateBook.scss";
 import React, { useState } from 'react';
 import Navbar from "../components/Navbar";
 
-import { useCreateBook } from "../hooks/bookService/useBook";
+import { useCreateBook } from "../hooks";
 
 export interface BookForm {
     title: string;

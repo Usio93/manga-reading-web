@@ -11,17 +11,25 @@ import {
 } from "../../api/auth-service";
 import { createServiceConfig } from "../../config/configuration";
 import { showToast } from "../../utils/toast";
+import { useLogin } from "./useAuth";
 
 const userApi = new UserAPIApi(createServiceConfig("auth"));
 
 export const useRegister = () => {
     const navigate = useNavigate();
+    const { mutateAsync: login } = useLogin(); // 👈 thêm login
 
     return useMutation<ApiResponseUserResponse, Error, UserCreateRequest>({
         mutationFn: (data) =>
             userApi.createUser({ userCreateRequest: data }).then((res) => res.data),
-        onSuccess: () => {
+        onSuccess: async (data, variables) => {
             showToast("Đăng ký thành công", "success");
+
+            await login({
+                username: variables.username,
+                password: variables.password,
+            });
+
             navigate("/");
         },
         onError: (err) => {

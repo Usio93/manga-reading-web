@@ -21,7 +21,7 @@ export const useGetAllBooks = () => {
     return useQuery<ApiResponseListBookResponse, Error>({
         queryKey: ["books"],
         queryFn: async (): Promise<ApiResponseListBookResponse> => {
-            const res = await externalApi.getAllBooks() as unknown as AxiosResponse<ApiResponseListBookResponse>;
+            const res = await externalApi.getAllBooks();
             return res.data;
         },
     });
@@ -41,20 +41,24 @@ export const useGetBookById = (id: string) => {
 export const useBooksByCreatedDate = () => {
     return useQuery({
         queryKey: ["books", "by-created-date"],
-        queryFn: () => externalApi
-            .getBooksOrderByCreatedDateDesc()
-            .then(res => res.data?.data ?? []),
+        queryFn: async () => {
+            const res = await externalApi.getBooksOrderByCreatedDateDesc();
+            return res.data?.data ?? [];
+        },
     });
 };
+
 
 export const useBooksByViewCount = () => {
     return useQuery({
         queryKey: ["books", "by-view-count"],
-        queryFn: () => externalApi
-            .getBooksOrderByViewCountDesc()
-            .then(res => res.data?.data ?? []),
+        queryFn: async () => {
+            const res = await externalApi.getBooksOrderByViewCountDesc();
+            return res.data?.data ?? [];
+        },
     });
 };
+
 
 // ========== INTERNAL ========== //
 

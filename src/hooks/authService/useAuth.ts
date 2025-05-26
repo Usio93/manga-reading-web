@@ -73,15 +73,21 @@ export const useRefreshToken = () => {
 
 export const useLogout = () => {
     const dispatch = useDispatch();
+    const token = useSelector((state: RootState) => state.auth.token);
 
-    return useMutation<ApiResponseVoid, Error, LogoutRequest>({
-        mutationFn: (data) =>
-            authApi.logout({ logoutRequest: data }).then((res) => res.data),
+    return useMutation<ApiResponseVoid, Error, void>({
+        mutationFn: async () => {
+            if (!token) throw new Error("Token không tồn tại!");
+            const res = await authApi.logout({ logoutRequest: { token } });
+            return res.data;
+        },
         onSuccess: () => {
             dispatch(logout());
             showToast("Đã đăng xuất", "success");
         },
-        onError: () => showToast("Đăng xuất thất bại", "error"),
+        onError: () => {
+            showToast("Đăng xuất thất bại", "error");
+        },
     });
 };
 
