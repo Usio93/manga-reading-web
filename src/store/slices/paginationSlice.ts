@@ -1,9 +1,15 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { RootState } from "../index";
+
+interface PaginationInfo {
+    page: number;
+    pageSize: number;
+}
 
 interface PaginationState {
-    readingHistory: { page: number; pageSize: number };
-    comment: { page: number; pageSize: number };
-    favorite: { page: number; pageSize: number };
+    readingHistory: PaginationInfo;
+    comment: PaginationInfo;
+    favorite: PaginationInfo;
 }
 
 const initialState: PaginationState = {
@@ -16,14 +22,12 @@ const paginationSlice = createSlice({
     name: "pagination",
     initialState,
     reducers: {
-        setReadingHistoryPage(state, action: PayloadAction<number>) {
-            state.readingHistory.page = action.payload;
-        },
-        setCommentPage(state, action: PayloadAction<number>) {
-            state.comment.page = action.payload;
-        },
-        setFavoritePage(state, action: PayloadAction<number>) {
-            state.favorite.page = action.payload;
+        setPage(
+            state,
+            action: PayloadAction<{ type: keyof PaginationState; page: number }>
+        ) {
+            const { type, page } = action.payload;
+            state[type].page = page;
         },
         setPageSize(
             state,
@@ -35,11 +39,16 @@ const paginationSlice = createSlice({
     },
 });
 
-export const {
-    setReadingHistoryPage,
-    setCommentPage,
-    setFavoritePage,
-    setPageSize,
-} = paginationSlice.actions;
+export const { setPage, setPageSize } = paginationSlice.actions;
 
 export default paginationSlice.reducer;
+
+// ✅ Selectors (gợi ý dùng)
+export const selectReadingHistoryPagination = (state: RootState) =>
+    state.pagination.readingHistory;
+
+export const selectCommentPagination = (state: RootState) =>
+    state.pagination.comment;
+
+export const selectFavoritePagination = (state: RootState) =>
+    state.pagination.favorite;

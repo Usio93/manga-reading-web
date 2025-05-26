@@ -1,23 +1,28 @@
 import "../styles/UserProfilePage/UserProfile.scss";
-import React, { useState } from "react";
+import React from "react";
 import UserInfo from "../components/UserProfilePage/UserInfoProfile";
 import UserScrollList from "../components/UserProfilePage/UserScrollListProfile";
 import Navbar from "../components/Navbar";
 import { useAppSelector, useAppDispatch } from "../store/hooks";
 import { useReadingHistoryBooks } from "../hooks";
-import defaultAvatar from "../assets/default_avatar.jpg";
 import { useFavouriteBooks } from "../hooks/favouriteService/useFavouriteBooks";
-import { setFavoritePage } from "../store/slices/paginationSlice";
-import { setReadingHistoryPage } from "../store/slices/paginationSlice";
+import defaultAvatar from "../assets/default_avatar.jpg";
+import { setPage } from "../store/slices/paginationSlice";
+import {
+    selectFavoritePagination,
+    selectReadingHistoryPagination,
+} from "../store/slices/paginationSlice";
 
 const UserProfile: React.FC = () => {
-    const [favIndex, setFavIndex] = useState(0);
-    const [hisIndex, setHisIndex] = useState(0);
     const visibleCount = 6;
-
     const dispatch = useAppDispatch();
+
     const user = useAppSelector((state) => state.auth.user);
     const userId = user?.userId;
+
+    // 🔄 Redux-based paging
+    const { page: favIndex } = useAppSelector(selectFavoritePagination);
+    const { page: hisIndex } = useAppSelector(selectReadingHistoryPagination);
 
     const { mangaItems: historyItems, isLoading: isLoadingHistory } = useReadingHistoryBooks(userId ?? "");
     const { mangaItems: favouriteItems, isLoading: isLoadingFav } = useFavouriteBooks();
@@ -28,6 +33,8 @@ const UserProfile: React.FC = () => {
     ) => {
         const list = type === "fav" ? favouriteItems : historyItems;
         const index = type === "fav" ? favIndex : hisIndex;
+        const reduxKey = type === "fav" ? "favorite" : "readingHistory";
+
         const max = Math.max(0, list.length - visibleCount);
 
         const newIndex =
@@ -35,13 +42,7 @@ const UserProfile: React.FC = () => {
                 ? Math.min(index + 1, max)
                 : Math.max(index - 1, 0);
 
-        if (type === "fav") {
-            setFavIndex(newIndex);
-            dispatch(setFavoritePage(newIndex));
-        } else {
-            setHisIndex(newIndex);
-            dispatch(setReadingHistoryPage(newIndex));
-        }
+        dispatch(setPage({ type: reduxKey, page: newIndex }));
     };
 
     if (!user) return <div>Loading user...</div>;
@@ -57,7 +58,6 @@ const UserProfile: React.FC = () => {
                         avatarUrl: user.avatarUrl ?? defaultAvatar,
                     }}
                 />
-
 
                 <UserScrollList
                     title="⭐ Favourite:"

@@ -1,8 +1,13 @@
 import { useQuery } from "@tanstack/react-query";
 import { ExternalChapterAPIsApi } from "../../api/chapter-service";
-import { createServiceConfig } from "../../config/configuration";
+import { createPublicServiceConfig } from "../../config/configuration";
+import { publicAxios } from "../../config/axiosInstances";
 
-const api = new ExternalChapterAPIsApi(createServiceConfig("chapter"));
+const api = new ExternalChapterAPIsApi(
+    createPublicServiceConfig("chapter"),
+    undefined,
+    publicAxios
+);
 
 export const useGetChaptersByBookId = (bookId: string) =>
     useQuery({

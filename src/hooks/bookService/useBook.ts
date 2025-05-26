@@ -8,12 +8,25 @@ import {
     BookCreationRequest,
     BookRequest,
 } from "../../api/book-service";
-import { createServiceConfig } from "../../config/configuration";
 import { showToast } from "../../utils/toast";
-import { AxiosResponse } from "axios";
+import {
+    createPrivateServiceConfig,
+    createPublicServiceConfig,
+} from "../../config/configuration";
+import { privateAxios, publicAxios } from "../../config/axiosInstances";
 
-const externalApi = new ExternalBookAPIsApi(createServiceConfig("book"));
-const internalApi = new InternalBookControllerApi(createServiceConfig("book"));
+const externalApi = new ExternalBookAPIsApi(
+    createPublicServiceConfig("book"),
+    undefined,
+    publicAxios
+);
+
+// 🔐 Internal: requires token
+const internalApi = new InternalBookControllerApi(
+    createPrivateServiceConfig("book"),
+    undefined,
+    privateAxios
+);
 
 // ========== EXTERNAL ========== //
 
@@ -111,4 +124,10 @@ export const useCheckBookExists = (bookId: string) => {
         },
         enabled: !!bookId,
     });
+};
+
+// ✅ Raw function export để dùng cho useQueries
+export const getBookByIdFn = async (id: string) => {
+    const res = await externalApi.getBookById({ id });
+    return res.data; // ✅ chỉ trả ApiResponseBookResponse
 };

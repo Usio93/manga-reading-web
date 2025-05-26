@@ -12,16 +12,33 @@ import {
 import { createServiceConfig } from "../../config/configuration";
 import { showToast } from "../../utils/toast";
 import { useLogin } from "./useAuth";
+import {
+    createPublicServiceConfig,
+    createPrivateServiceConfig,
+} from "../../config/configuration";
+import { publicAxios, privateAxios } from "../../config/axiosInstances";
+
+// Dùng cho các API yêu cầu xác thực
+const userApiPrivate = new UserAPIApi(
+    createPrivateServiceConfig("auth"),
+    undefined,
+    privateAxios
+);
+const userApiPublic = new UserAPIApi(
+    createPublicServiceConfig("auth"),
+    undefined,
+    publicAxios
+);
 
 const userApi = new UserAPIApi(createServiceConfig("auth"));
 
 export const useRegister = () => {
     const navigate = useNavigate();
-    const { mutateAsync: login } = useLogin(); // 👈 thêm login
+    const { mutateAsync: login } = useLogin();
 
     return useMutation<ApiResponseUserResponse, Error, UserCreateRequest>({
         mutationFn: (data) =>
-            userApi.createUser({ userCreateRequest: data }).then((res) => res.data),
+            userApiPublic.createUser({ userCreateRequest: data }).then((res) => res.data),
         onSuccess: async (data, variables) => {
             showToast("Đăng ký thành công", "success");
 
@@ -107,7 +124,7 @@ export const useUpdateUser = () => {
 export const useChangePassword = (userId: string) => {
     return useMutation<ApiResponseChangePasswordResponse, Error, ChangePasswordRequest>({
         mutationFn: (data) =>
-            userApi.changePassword({
+            userApiPrivate.changePassword({
                 userId,
                 changePasswordRequest: data,
             }).then((res) => res.data),

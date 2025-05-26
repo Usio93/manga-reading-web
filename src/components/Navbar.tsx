@@ -11,20 +11,20 @@ import "../styles/Navbar.scss";
 
 import logo from "../assets/logo-black.png";
 import { useSearchByKeyword, useNavbarAuth } from "../hooks";
-/*import { mapSearchResultToBookItem } from "../utils/mappers";*/
+import { mapSearchResultToBookItem } from "../utils/mappers";
 import defaultAvatar from "../assets/default_avatar.jpg";
 
 const Navbar: React.FC = () => {
     const [showDropdown, setShowDropdown] = useState(false);
     const [scrolled, setScrolled] = useState(false);
     const [hovering, setHovering] = useState(false);
-   /* const [search, setSearch] = useState("");
+    const [search, setSearch] = useState("");
     const [debouncedSearch] = useDebounce(search, 300);
     const trimmedSearch = debouncedSearch.trim();
-    const showSearch = trimmedSearch.length > 0;*/
+    const showSearch = trimmedSearch.length > 0;
 
-   /* const { data: mergedResult, isLoading } = useSearchByKeyword(showSearch ? trimmedSearch : "");
-    const books = (mergedResult || []).map(mapSearchResultToBookItem);*/
+    const { data: mergedResult, isLoading } = useSearchByKeyword(showSearch ? trimmedSearch : "");
+    const books = (mergedResult || []).map(mapSearchResultToBookItem);
 
     const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -82,8 +82,7 @@ const Navbar: React.FC = () => {
                         <li><Link to="/book/review">book detail</Link></li>
                         <li><Link to="/admin/profile">admin profile</Link></li>
                     </ul>
-
-                    {/*<div className="search-container" style={{ position: "relative" }}>
+                    <div className="search-container" style={{ position: "relative" }}>
                         <input
                             type="text"
                             placeholder="Search....."
@@ -97,7 +96,7 @@ const Navbar: React.FC = () => {
                             isLoading={isLoading}
                             onSelect={() => setSearch("")}
                         />
-                    </div>*/}
+                    </div>
 
                     <div className="user-actions">
                         {isAuthenticated && user ? (

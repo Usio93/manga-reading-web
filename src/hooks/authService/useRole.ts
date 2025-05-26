@@ -6,10 +6,17 @@ import {
     ApiResponseRoleResponse,
     ApiResponseVoid,
 } from "../../api/auth-service";
-import { createServiceConfig } from "../../config/configuration";
+import {
+    createPrivateServiceConfig,
+} from "../../config/configuration";
 import { showToast } from "../../utils/toast";
+import { privateAxios } from "../../config/axiosInstances";
 
-const roleApi = new RoleAPIApi(createServiceConfig("auth"));
+const roleApi = new RoleAPIApi(
+    createPrivateServiceConfig("auth"),
+    undefined,
+    privateAxios
+);
 
 export const useRoles = () => {
     return useQuery<ApiResponseListRoleResponse>({

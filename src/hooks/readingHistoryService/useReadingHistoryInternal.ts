@@ -1,10 +1,19 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { InternalHistoryRecordControllerApi } from "../../api/readingHistory-service";
-import { RecordRequest, ApiResponseRecordResponse } from "../../api/readingHistory-service";
-import { createServiceConfig } from "../../config/configuration";
+import {
+    InternalHistoryRecordControllerApi,
+    RecordRequest,
+    ApiResponseRecordResponse,
+} from "../../api/readingHistory-service";
+import { createPrivateServiceConfig } from "../../config/configuration";
+import { privateAxios } from "../../config/axiosInstances";
 import { showToast } from "../../utils/toast";
 
-const internalApi = new InternalHistoryRecordControllerApi(createServiceConfig("history"));
+// ✅ Gọi đúng config + axios
+const internalApi = new InternalHistoryRecordControllerApi(
+    createPrivateServiceConfig("history"),
+    undefined,
+    privateAxios
+);
 
 export const useSaveReadingHistory = () => {
     const queryClient = useQueryClient();

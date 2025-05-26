@@ -1,10 +1,15 @@
 import { useMutation } from "@tanstack/react-query";
-import { UploadControllerApi } from "../../api/upload-service";
-import { ApiResponseUploadImageResponse } from "../../api/upload-service";
-import { createServiceConfig } from "../../config/configuration";
+import { UploadControllerApi, ApiResponseUploadImageResponse } from "../../api/upload-service";
+import { createPrivateServiceConfig } from "../../config/configuration";
+import { privateAxios } from "../../config/axiosInstances";
 import { showToast } from "../../utils/toast";
 
-const api = new UploadControllerApi(createServiceConfig("upload"));
+// ✅ Rõ ràng đây là API cần xác thực
+const api = new UploadControllerApi(
+    createPrivateServiceConfig("upload"),
+    undefined,
+    privateAxios
+);
 
 export const useUploadImage = () => {
     return useMutation<ApiResponseUploadImageResponse, Error, File>({

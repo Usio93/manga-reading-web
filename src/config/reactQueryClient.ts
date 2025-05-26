@@ -4,7 +4,6 @@ import { showToast } from "../utils/toast";
 export const queryClient = new QueryClient({
     defaultOptions: {
         queries: {
-            suspense: true, // 👉 Cho phép dùng <Suspense> trong component
             retry: 2, // Tự động retry 2 lần khi gặp lỗi
             refetchOnWindowFocus: false, // Không refetch khi focus vào cửa sổ
             staleTime: 1000 * 60 * 10, // Thời gian giữ dữ liệu trước khi stale (10 phút)

@@ -9,7 +9,11 @@ import {
     ExternalAPIForFavouriteServiceApi,
     InternalAPIForFavouriteServiceApi,
 } from "../../api/favourite-service";
-import { createServiceConfig } from "../../config/configuration";
+import {
+    createPublicServiceConfig,
+    createPrivateServiceConfig,
+} from "../../config/configuration";
+import { publicAxios, privateAxios } from "../../config/axiosInstances";
 import {
     setFavouriteBookIds,
     addFavourite,
@@ -17,8 +21,18 @@ import {
     clearFavourite,
 } from "../../store/slices/favouriteSlice";
 
-const externalApi = new ExternalAPIForFavouriteServiceApi(createServiceConfig("favourite"));
-const internalApi = new InternalAPIForFavouriteServiceApi(createServiceConfig("favourite"));
+const externalApi = new ExternalAPIForFavouriteServiceApi(
+    createPublicServiceConfig("favourite"),
+    undefined,
+    publicAxios
+);
+
+const internalApi = new InternalAPIForFavouriteServiceApi(
+    createPrivateServiceConfig("favourite"),
+    undefined,
+    privateAxios
+);
+
 const FAVOURITE_KEY = "favourite";
 
 // External: Get count of favourites for a book
@@ -45,7 +59,9 @@ export const useGetFavouriteListByUser = (username: string) => {
 
     useEffect(() => {
         if (query.data) {
-            const ids = query.data.map((f: { bookId?: string }) => f.bookId).filter(Boolean) as string[];
+            const ids = query.data
+                .map((f: { bookId?: string }) => f.bookId)
+                .filter(Boolean) as string[];
             dispatch(setFavouriteBookIds(ids));
         }
     }, [query.data, dispatch]);
@@ -72,7 +88,9 @@ export const useAddBookToFavourite = () => {
             internalApi.addBookToFavourite({ bookAddRequest: data }),
         onSuccess: (_, variables) => {
             showToast("✅ Đã thêm vào danh sách yêu thích");
-            dispatch(addFavourite(variables.bookId!));
+            if (variables.bookId) {
+                dispatch(addFavourite(variables.bookId));
+            }
             queryClient.invalidateQueries({ queryKey: [FAVOURITE_KEY] });
         },
         onError: (err: AxiosError) => {
@@ -92,7 +110,9 @@ export const useRemoveBookFromFavourite = () => {
             internalApi.removeBookFromFavourite({ bookRemoveRequest: data }),
         onSuccess: (_, variables) => {
             showToast("🗑️ Đã xóa khỏi danh sách yêu thích");
-            dispatch(removeFavourite(variables.bookId!));
+            if (variables.bookId) {
+                dispatch(removeFavourite(variables.bookId));
+            }
             queryClient.invalidateQueries({ queryKey: [FAVOURITE_KEY] });
         },
         onError: (err: AxiosError) => {

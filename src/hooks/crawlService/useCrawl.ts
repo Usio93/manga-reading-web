@@ -1,10 +1,15 @@
 import { useMutation } from "@tanstack/react-query";
 import { showToast } from "../../utils/toast";
-import { createServiceConfig } from "../../config/configuration";
+import { createPrivateServiceConfig } from "../../config/configuration";
+import { privateAxios } from "../../config/axiosInstances";
 import { CrawlControllerApi } from "../../api/crawl-service";
 import type { Metadata, CrawlResponse } from "../../api/crawl-service";
 
-const crawlApi = new CrawlControllerApi(createServiceConfig("crawl"));
+const crawlApi = new CrawlControllerApi(
+    createPrivateServiceConfig("crawl"),
+    undefined,
+    privateAxios
+);
 
 export const useCrawl = () => {
     return useMutation<CrawlResponse, Error, Metadata>({

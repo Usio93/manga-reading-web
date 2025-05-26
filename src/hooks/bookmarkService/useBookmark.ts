@@ -1,10 +1,20 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { BookmarkControllerApi, BookmarkRequest } from "../../api/bookmark-service";
-import { ApiResponseBookmarkResponse, ApiResponseBoolean, ApiResponseListBookmarkResponse } from "../../api/bookmark-service";
-import { createServiceConfig } from "../../config/configuration";
+import {
+    BookmarkControllerApi,
+    BookmarkRequest,
+    ApiResponseBookmarkResponse,
+    ApiResponseBoolean,
+    ApiResponseListBookmarkResponse,
+} from "../../api/bookmark-service";
 import { showToast } from "../../utils/toast";
+import { createPrivateServiceConfig } from "../../config/configuration";
+import { privateAxios } from "../../config/axiosInstances";
 
-const bookmarkApi = new BookmarkControllerApi(createServiceConfig("bookmark"));
+const bookmarkApi = new BookmarkControllerApi(
+    createPrivateServiceConfig("bookmark"),
+    undefined,
+    privateAxios
+);
 
 const QUERY_KEYS = {
     bookmarks: (userId: number) => ["bookmarks", userId],

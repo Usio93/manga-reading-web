@@ -17,7 +17,7 @@ const AuthorizedRoute = ({ roles = [], permissions = [] }: AuthorizedRouteProps)
     }
 
     const hasRequiredRole =
-        roles.length === 0 || (roles.includes("admin") && isAdmin);
+        roles.length === 0 || (roles.includes("admin_system") && isAdmin);
 
     if (!hasRequiredRole) {
         return <Navigate to="/unauthorized" replace />;

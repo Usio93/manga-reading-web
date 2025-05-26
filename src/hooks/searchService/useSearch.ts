@@ -6,24 +6,42 @@ import {
     ApiResponseListBookSearchingResult,
     ApiResponseBookIndexResponse,
 } from "../../api/search-service";
-import { createServiceConfig } from "../../config/configuration";
+import {
+    createPublicServiceConfig,
+    createPrivateServiceConfig,
+} from "../../config/configuration";
+import { publicAxios, privateAxios } from "../../config/axiosInstances";
 import { showToast } from "../../utils/toast";
 
-const searchingApi = new BookSearchingControllerApi(createServiceConfig("search"));
-const indexingApi = new BookIndexControllerApi(createServiceConfig("search"));
+// 🌐 Searching API (public)
+const searchingApi = new BookSearchingControllerApi(
+    createPublicServiceConfig("search"),
+    undefined,
+    publicAxios
+);
+
+// 🔐 Indexing API (private)
+const indexingApi = new BookIndexControllerApi(
+    createPrivateServiceConfig("search"),
+    undefined,
+    privateAxios
+);
+
+// ---------- PUBLIC HOOKS ----------
 
 export const useAutocompleteTitle = (prefix: string) => {
     return useQuery<ApiResponseListBookSearchingResult, Error>({
         queryKey: ["autocomplete-title", prefix],
         queryFn: () => searchingApi.autocompleteTitle({ prefix }).then((res) => res.data),
-        enabled: !!prefix,
+        enabled: prefix.trim().length > 0,
     });
 };
+
 export const useSearchByTitle = (title: string) => {
     return useQuery<ApiResponseListBookSearchingResult, Error>({
         queryKey: ["search-title", title],
         queryFn: () => searchingApi.getBookByTitle({ title }).then((res) => res.data),
-        enabled: !!title,
+        enabled: title.trim().length > 0,
     });
 };
 
@@ -31,7 +49,7 @@ export const useSearchByAuthor = (author: string) => {
     return useQuery<ApiResponseListBookSearchingResult, Error>({
         queryKey: ["search-author", author],
         queryFn: () => searchingApi.getBooksByAuthor({ author }).then((res) => res.data),
-        enabled: !!author,
+        enabled: author.trim().length > 0,
     });
 };
 
@@ -43,7 +61,6 @@ export const useSearchByCategories = (categories: string[]) => {
     });
 };
 
-// Không dùng ở UI
 export const useGetAllSearchResults = () => {
     return useQuery<ApiResponseListBookSearchingResult, Error>({
         queryKey: ["search-all"],
@@ -51,7 +68,8 @@ export const useGetAllSearchResults = () => {
     });
 };
 
-// Không dùng ở UI
+// ---------- PRIVATE HOOKS ----------
+
 export const useUpdateBookIndex = () => {
     const queryClient = useQueryClient();
 

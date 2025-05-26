@@ -6,23 +6,25 @@ import {
     ApiResponsePermissionResponse,
     ApiResponseVoid,
 } from "../../api/auth-service";
-import { createServiceConfig } from "../../config/configuration";
+import { createPrivateServiceConfig } from "../../config/configuration";
 import { showToast } from "../../utils/toast";
 
-const permissionApi = new PermissionAPIApi(createServiceConfig("auth"));
+// ✅ Dùng config private cho permission (thuộc auth-service)
+const permissionApi = new PermissionAPIApi(createPrivateServiceConfig("auth"));
 
 export const usePermissions = () => {
-    return useQuery<ApiResponseListPermissionResponse>({
-        queryKey: ["permissions"],
-        queryFn: async () => {
-            try {
-                const res = await permissionApi.findAllPermissions();
-                return res.data;
-            } catch (err) {
-                showToast("Không lấy được danh sách quyền", "error");
-                throw err;
-            }
-        },
+    const queryKey = ["permissions"] as const; // 👈 dùng `as const` để giữ kiểu tuple chuẩn
+
+    return useQuery<
+        ApiResponseListPermissionResponse, // TData
+        Error,                             // TError
+        ApiResponseListPermissionResponse, // TSelect
+        typeof queryKey                    // TQueryKey
+    >({
+        queryKey,
+        queryFn: () =>
+            permissionApi.findAllPermissions().then((res) => res.data),
+
     });
 };
 
@@ -31,7 +33,9 @@ export const useCreatePermission = () => {
 
     return useMutation<ApiResponsePermissionResponse, Error, PermissionRequest>({
         mutationFn: (data) =>
-            permissionApi.createPermission({ permissionRequest: data }).then((res) => res.data),
+            permissionApi
+                .createPermission({ permissionRequest: data })
+                .then((res) => res.data),
         onSuccess: async () => {
             showToast("Tạo quyền thành công", "success");
             await queryClient.invalidateQueries({ queryKey: ["permissions"] });
@@ -47,7 +51,9 @@ export const useDeletePermission = () => {
 
     return useMutation<ApiResponseVoid, Error, string>({
         mutationFn: (permissionId) =>
-            permissionApi.deletePermission({ permissionId }).then((res) => res.data),
+            permissionApi
+                .deletePermission({ permissionId })
+                .then((res) => res.data),
         onSuccess: async () => {
             showToast("Xoá quyền thành công", "success");
             await queryClient.invalidateQueries({ queryKey: ["permissions"] });

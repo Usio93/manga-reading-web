@@ -1,10 +1,16 @@
 import { useQuery } from "@tanstack/react-query";
 import { HistoryRecordControllerApi } from "../../api/readingHistory-service";
-import { createServiceConfig } from "../../config/configuration";
+import { createPrivateServiceConfig } from "../../config/configuration";
+import { privateAxios } from "../../config/axiosInstances";
 import { showToast } from "../../utils/toast";
 import { mapPageRecordResponse, ReadingHistoryPage } from "../../utils/mappers";
 
-const api = new HistoryRecordControllerApi(createServiceConfig("history"));
+// 🔐 Dùng đúng privateAxios
+const api = new HistoryRecordControllerApi(
+    createPrivateServiceConfig("history"),
+    undefined,
+    privateAxios
+);
 
 export const useGetReadingHistory = (
     userId: string,
@@ -12,7 +18,7 @@ export const useGetReadingHistory = (
     size = 10
 ) => {
     return useQuery<ReadingHistoryPage>({
-        queryKey: ["reading-history", userId, page, size] as const,
+        queryKey: ["reading-history", userId, page, size],
         queryFn: async () => {
             try {
                 const res = await api.getRecordByUserId({ userId, page, size });

@@ -1,9 +1,14 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { InternalChapterControllerApi, ChapterRequest } from "../../api/chapter-service";
-import { createServiceConfig } from "../../config/configuration";
 import { showToast } from "../../utils/toast";
+import { createPrivateServiceConfig } from "../../config/configuration";
+import {privateAxios} from "../../config/axiosInstances";
 
-const api = new InternalChapterControllerApi(createServiceConfig("chapter"));
+const api = new InternalChapterControllerApi(
+    createPrivateServiceConfig("chapter"),
+    undefined,
+    privateAxios
+);
 
 export const useCreateChapter = (bookId: string) => {
     const queryClient = useQueryClient();

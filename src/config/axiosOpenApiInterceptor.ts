@@ -1,10 +1,10 @@
-import axios from "axios";
+import { privateAxios, publicAxios } from "./axiosInstances";
 import { store } from "../store";
 import { logout, updateAccessToken } from "../store/slices/authSlice";
 import { showToast } from "../utils/toast";
 
-export const attachOpenApiInterceptors = () => {
-    axios.interceptors.response.use(
+export const attachPrivateInterceptors = () => {
+    privateAxios.interceptors.response.use(
         (response) => response,
         async (error) => {
             const originalRequest = error.config;
@@ -16,10 +16,9 @@ export const attachOpenApiInterceptors = () => {
                     const refreshToken = store.getState().auth.refreshToken;
                     if (!refreshToken) throw new Error("Thiếu refresh token");
 
-                    const res = await axios.post(
-                        `${import.meta.env.VITE_API_BASE_URL}/auth/refresh`,
-                        { refreshToken },
-                        { headers: { "Content-Type": "application/json" } }
+                    const res = await publicAxios.post(
+                        "/identity/auth/refresh",
+                        { refreshToken }
                     );
 
                     const newAccessToken = res.data?.result?.accessToken;
@@ -29,7 +28,7 @@ export const attachOpenApiInterceptors = () => {
                     localStorage.setItem("token", newAccessToken);
 
                     originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;
-                    return axios(originalRequest);
+                    return privateAxios(originalRequest);
                 } catch (refreshError) {
                     showToast("Phiên đăng nhập hết hạn. Vui lòng đăng nhập lại.", "error");
                     store.dispatch(logout());

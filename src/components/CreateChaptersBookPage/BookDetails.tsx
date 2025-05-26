@@ -6,15 +6,12 @@ import ChapterEditor from './ChapterEditor';
 import ChapterList from './ChapterList';
 import Navbar from "../Navbar";
 
-
-
-
-import { useUpdateBook } from "../../hooks/bookService/useBook";
+import { useUpdateBook } from "../../hooks";
 import {
     useCreateChapter,
     useUpdateChapter,
     useDeleteChapter
-} from "../../hooks/chapterService/useAdminChapter";
+} from "../../hooks";
 
 interface BookForm {
     title: string;
