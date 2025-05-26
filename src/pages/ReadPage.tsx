@@ -1,101 +1,111 @@
-import React, { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+
+
 import CommentSection from"../components/ReadPage/CommentSection";
 import "../styles/ReadPage/ReadingPage.scss";
 import Navbar from "../components/Navbar";
 
 
-import { useGetChaptersByBookId } from "../hooks/chapterService/usePublicChapter";
 
 
-interface Chapter {
-    id: string;
-    title: string;
-    images: string[];
-    content?: string;
-}
+
+import React, { useEffect } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+
+
+
+import { useGetChapterById, useGetChaptersByBookId } from "../hooks/chapterService/usePublicChapter";
 
 const ReadingForm = () => {
-    const location = useLocation();
-    const bookId: string = location.state?.bookId;
+    const { bookId, chapterId } = useParams<{ bookId: string; chapterId: string }>();
+    const navigate = useNavigate();
 
-    const { data: chaptersData, isLoading } = useGetChaptersByBookId(bookId);
-    const rawChapters = chaptersData?.data || [];
 
-    const chapters: Chapter[] = rawChapters
-        .filter((ch) => !!ch.id && !!ch.title)
-        .map((ch) => ({
-            id: ch.id!,
-            title: ch.title!,
-            images: ch.images || [],
-            content: ch.content ?? "",
-        }));
+    // Gọi API lấy dữ liệu chương hiện tại
+    const { data: chapterData, isLoading } = useGetChapterById(bookId || '', chapterId || '');
 
-    const [chapterIndex, setChapterIndex] = useState<number>(0);
+    // Gọi API lấy danh sách tất cả các chương trong truyện
+    const { data: allChaptersData } = useGetChaptersByBookId(bookId || '');
+    const chapters = allChaptersData?.data || [];
 
     useEffect(() => {
         window.scrollTo(0, 0);
-    }, [chapterIndex]);
+    }, [chapterId]);
 
-    const updateChapter = (num: number) => {
-        if (num >= 0 && num < chapters.length) {
-            setChapterIndex(num);
-        }
-    };
-
-    if (!bookId) {
-        return <div style={{ padding: '20px' }}>Missing Book ID</div>;
+    if (!bookId || !chapterId) {
+        return <div style={{ padding: '20px' }}>Thiếu bookId hoặc chapterId</div>;
     }
 
     if (isLoading) {
-        return <div style={{ padding: '20px' }}>Loading chapters...</div>;
+        return <div style={{ padding: '20px' }}>Đang tải chương...</div>;
     }
 
-    if (chapters.length === 0) {
-        return <div style={{ padding: '20px' }}>No chapters found.</div>;
+    if (!chapterData || !chapterData.data) {
+        return <div style={{ padding: '20px' }}>Không tìm thấy chương.</div>;
     }
 
-    const currentChapter = chapters[chapterIndex];
+    const chapter = chapterData.data;
+
+    // Tìm index chương hiện tại trong danh sách
+    const currentIndex = chapters.findIndex((ch: any) => String(ch.id) === chapterId);
+    const prevChapter = chapters[currentIndex - 1];
+    const nextChapter = chapters[currentIndex + 1];
+
+    const handleNavigateChapter = (targetChapterId: string) => {
+        navigate(`/user/review/reading/${bookId}/${targetChapterId}`);
+    };
 
     return (
         <div className="reading-container">
-            <Navbar />
+
             <div className="chapter-navigation-big">
                 <div className="chapter-navigation">
-                    <button onClick={() => updateChapter(chapterIndex - 1)} disabled={chapterIndex === 0}>
+                    <button
+                        disabled={!prevChapter}
+                        onClick={() => prevChapter && handleNavigateChapter(String(prevChapter.id))}
+                    >
                         Previous
                     </button>
-                    <select value={chapterIndex} onChange={(e) => updateChapter(parseInt(e.target.value))}>
-                        {chapters.map((chapter, i) => (
-                            <option key={chapter.id} value={i}>
-                                Chapter {i + 1} - {chapter.title}
+
+                    <select
+                        value={chapterId}
+                        onChange={(e) => handleNavigateChapter(e.target.value)}
+                    >
+                        {chapters.map((ch: any) => (
+                            <option key={ch.id} value={ch.id}>
+                                {ch.title}
                             </option>
                         ))}
                     </select>
+
                     <button
-                        onClick={() => updateChapter(chapterIndex + 1)}
-                        disabled={chapterIndex === chapters.length - 1}
+                        disabled={!nextChapter}
+                        onClick={() => nextChapter && handleNavigateChapter(String(nextChapter.id))}
                     >
                         Next
                     </button>
                 </div>
 
-                <h2 className="chapter-title">{currentChapter.title}</h2>
+                <h2 className="chapter-title">{chapter.title}</h2>
 
-                {currentChapter.images?.length > 0 && (
+                {Array.isArray(chapter.images) && chapter.images.length > 0 && (
                     <div className="chapter-image-gallery">
-                        {currentChapter.images.map((imgUrl, idx) => (
-                            <img key={idx} src={imgUrl} alt={`Chapter image ${idx + 1}`} className="chapter-image" />
+                        {chapter.images.map((imgUrl: string, idx: number) => (
+                            <img
+                                key={idx}
+                                src={imgUrl}
+                                alt={`Hình ảnh chương ${idx + 1}`}
+                                className="chapter-image"
+                            />
                         ))}
                     </div>
                 )}
 
-                {currentChapter.content && (
-                    <div className="chapter-content">{currentChapter.content}</div>
+                {chapter.content && (
+                    <div className="chapter-content">{chapter.content}</div>
                 )}
 
-                <CommentSection chapterId={chapterIndex} />
-                {/* Hoặc: <CommentSection chapterId={currentChapter.id} /> nếu prop nhận string */}
+                <CommentSection chapterId={chapter.id ? Number(chapter.id) : 0} />
+
             </div>
         </div>
     );

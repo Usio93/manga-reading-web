@@ -63,7 +63,7 @@ const CreateBookForm: React.FC = () => {
 
             createBook(newBook, {
                 onSuccess: () => {
-                    navigate('/admin/create/createchapter', { state: { book: newBook } });
+                    navigate('/admin/review', { state: { book: newBook } });
                 }
             });
         };
@@ -92,7 +92,7 @@ const CreateBookForm: React.FC = () => {
             <h1 className="create-book-title">Create Book</h1>
             <div className="create-book-form">
 
-                {/* Image upload */}
+
                 <div className="image-upload">
                     <label className="avatar-book">
                         <strong>Avatar book</strong>

@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import "../../styles/UserProfilePage/UserInfoProfile.scss";
 import UserSettingsPopup from './UserSettingsPopup';
 import { useUpdateUserProfile, useChangeAvatar } from "../../hooks";
-import defaultAvatar from "../assets/default_avatar.jpg";
+import defaultAvatar from "../../assets/default_avatar.jpg";
 
 interface UserData {
     id: string;

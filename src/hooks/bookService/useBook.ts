@@ -41,14 +41,18 @@ export const useGetBookById = (id: string) => {
 export const useBooksByCreatedDate = () => {
     return useQuery({
         queryKey: ["books", "by-created-date"],
-        queryFn: () => externalApi.getBooksOrderByCreatedDateDesc().then(res => res.data.data),
+        queryFn: () => externalApi
+            .getBooksOrderByCreatedDateDesc()
+            .then(res => res.data?.data ?? []),
     });
 };
 
 export const useBooksByViewCount = () => {
     return useQuery({
         queryKey: ["books", "by-view-count"],
-        queryFn: () => externalApi.getBooksOrderByViewCountDesc().then(res => res.data.data),
+        queryFn: () => externalApi
+            .getBooksOrderByViewCountDesc()
+            .then(res => res.data?.data ?? []),
     });
 };
 

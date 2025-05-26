@@ -5,10 +5,9 @@ import { RootState } from '../../store/index';
 import avatarImg from '../../assets/default_avatar.jpg';
 
 
-//import {useCommentsByChapterId, useCreateComment,} from '../../hooks/commentService/useComment'; // your hook file path
-//import {useCreateReplyComment,useRepliesByCommentId,} from '../../hooks/commentService/useCommentReply'; // your hook file path
-import {useCommentsByChapterId, useCreateComment,} from '../../mocks/useComment';
-import {useCreateReplyComment, useRepliesByCommentId,} from '../../mocks/useCommentReply';
+import {useCommentsByChapterId, useCreateComment,} from '../../hooks/commentService/useComment'; // your hook file path
+import {useCreateReplyComment,useRepliesByCommentId,} from '../../hooks/commentService/useCommentReply'; // your hook file path
+
 
 
 interface CommentSectionProps {

@@ -11,18 +11,20 @@ import "../styles/Navbar.scss";
 
 import logo from "../assets/logo-black.png";
 import { useSearchByKeyword, useNavbarAuth } from "../hooks";
-import { mapSearchResultToBookItem } from "../utils/mappers";
+/*import { mapSearchResultToBookItem } from "../utils/mappers";*/
 import defaultAvatar from "../assets/default_avatar.jpg";
 
 const Navbar: React.FC = () => {
     const [showDropdown, setShowDropdown] = useState(false);
     const [scrolled, setScrolled] = useState(false);
     const [hovering, setHovering] = useState(false);
-
-    const [search, setSearch] = useState("");
+   /* const [search, setSearch] = useState("");
     const [debouncedSearch] = useDebounce(search, 300);
-    const { data: mergedResult } = useSearchByKeyword(debouncedSearch);
-    const books = (mergedResult || []).map(mapSearchResultToBookItem);
+    const trimmedSearch = debouncedSearch.trim();
+    const showSearch = trimmedSearch.length > 0;*/
+
+   /* const { data: mergedResult, isLoading } = useSearchByKeyword(showSearch ? trimmedSearch : "");
+    const books = (mergedResult || []).map(mapSearchResultToBookItem);*/
 
     const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -41,6 +43,7 @@ const Navbar: React.FC = () => {
             document.removeEventListener("mousedown", handleClickOutside);
         };
     }, []);
+
     const {
         user,
         isAuthenticated,
@@ -51,7 +54,6 @@ const Navbar: React.FC = () => {
         error,
         loading,
     } = useNavbarAuth();
-
 
     return (
         <>
@@ -81,7 +83,7 @@ const Navbar: React.FC = () => {
                         <li><Link to="/admin/profile">admin profile</Link></li>
                     </ul>
 
-                    <div className="search-container" style={{ position: "relative" }}>
+                    {/*<div className="search-container" style={{ position: "relative" }}>
                         <input
                             type="text"
                             placeholder="Search....."
@@ -92,9 +94,10 @@ const Navbar: React.FC = () => {
                         <SearchDropdown
                             books={books}
                             search={search}
+                            isLoading={isLoading}
                             onSelect={() => setSearch("")}
                         />
-                    </div>
+                    </div>*/}
 
                     <div className="user-actions">
                         {isAuthenticated && user ? (
@@ -104,7 +107,7 @@ const Navbar: React.FC = () => {
                                 onMouseLeave={() => setTimeout(() => setHovering(false), 200)}
                             >
                                 <img
-                                    src={user.avatarUrl || defaultAvatar }
+                                    src={user.avatarUrl || defaultAvatar}
                                     alt={user.name || user.username}
                                     className="avatar"
                                 />
