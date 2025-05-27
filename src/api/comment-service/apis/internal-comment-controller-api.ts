@@ -38,7 +38,7 @@ export const InternalCommentControllerApiAxiosParamCreator = function (configura
         getByBookId: async (bookId: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'bookId' is not null or undefined
             assertParamExists('getByBookId', 'bookId', bookId)
-            const localVarPath = `/internal/book/{bookId}`
+            const localVarPath = `/comment/internal/book/{bookId}`
                 .replace(`{${"bookId"}}`, encodeURIComponent(String(bookId)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -71,7 +71,7 @@ export const InternalCommentControllerApiAxiosParamCreator = function (configura
         getByChapterId: async (chapterId: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'chapterId' is not null or undefined
             assertParamExists('getByChapterId', 'chapterId', chapterId)
-            const localVarPath = `/internal/chapter/{chapterId}`
+            const localVarPath = `/comment/internal/chapter/{chapterId}`
                 .replace(`{${"chapterId"}}`, encodeURIComponent(String(chapterId)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -104,7 +104,7 @@ export const InternalCommentControllerApiAxiosParamCreator = function (configura
         getByUsername: async (username: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'username' is not null or undefined
             assertParamExists('getByUsername', 'username', username)
-            const localVarPath = `/internal/{username}`
+            const localVarPath = `/comment/internal/{username}`
                 .replace(`{${"username"}}`, encodeURIComponent(String(username)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);

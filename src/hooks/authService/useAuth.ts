@@ -21,7 +21,7 @@ import { showToast } from "../../utils/toast";
 
 const authApiPublic = new AuthenticationAPIApi(
     createPublicServiceConfig("auth"),
-    undefined,
+undefined,
     publicAxios
 );
 

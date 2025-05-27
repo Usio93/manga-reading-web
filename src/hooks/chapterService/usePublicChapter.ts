@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { ExternalChapterAPIsApi } from "../../api/chapter-service";
 import { createPublicServiceConfig } from "../../config/configuration";
-import { publicAxios } from "../../config/axiosInstances";
+import {publicAxios} from "../../config/axiosInstances";
 
 const api = new ExternalChapterAPIsApi(
     createPublicServiceConfig("chapter"),

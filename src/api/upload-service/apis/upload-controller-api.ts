@@ -48,7 +48,7 @@ export const UploadControllerApiAxiosParamCreator = function (configuration?: Co
         deleteFilesByBookId: async (bookId: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'bookId' is not null or undefined
             assertParamExists('deleteFilesByBookId', 'bookId', bookId)
-            const localVarPath = `/upload/book/{bookId}`
+            const localVarPath = `/upload/upload/book/{bookId}`
                 .replace(`{${"bookId"}}`, encodeURIComponent(String(bookId)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -84,7 +84,7 @@ export const UploadControllerApiAxiosParamCreator = function (configuration?: Co
             assertParamExists('uploadAvatar', 'userId', userId)
             // verify required parameter 'file' is not null or undefined
             assertParamExists('uploadAvatar', 'file', file)
-            const localVarPath = `/upload/avatar`;
+            const localVarPath = `/upload/upload/avatar`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -131,7 +131,7 @@ export const UploadControllerApiAxiosParamCreator = function (configuration?: Co
             assertParamExists('uploadCover', 'bookId', bookId)
             // verify required parameter 'file' is not null or undefined
             assertParamExists('uploadCover', 'file', file)
-            const localVarPath = `/upload/cover`;
+            const localVarPath = `/upload/upload/cover`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -175,7 +175,7 @@ export const UploadControllerApiAxiosParamCreator = function (configuration?: Co
         uploadFromUrl: async (fromUrlUploadRequest: FromUrlUploadRequest, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'fromUrlUploadRequest' is not null or undefined
             assertParamExists('uploadFromUrl', 'fromUrlUploadRequest', fromUrlUploadRequest)
-            const localVarPath = `/upload/from-url`;
+            const localVarPath = `/upload/upload/from-url`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -210,7 +210,7 @@ export const UploadControllerApiAxiosParamCreator = function (configuration?: Co
         uploadImage: async (file: File, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'file' is not null or undefined
             assertParamExists('uploadImage', 'file', file)
-            const localVarPath = `/upload/image`;
+            const localVarPath = `/upload/upload/image`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;

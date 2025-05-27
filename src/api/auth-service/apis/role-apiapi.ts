@@ -44,7 +44,7 @@ export const RoleAPIApiAxiosParamCreator = function (configuration?: Configurati
         _delete: async (role: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'role' is not null or undefined
             assertParamExists('_delete', 'role', role)
-            const localVarPath = `/roles/{role}`
+            const localVarPath = `/identity/roles/{role}`
                 .replace(`{${"role"}}`, encodeURIComponent(String(role)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -77,7 +77,7 @@ export const RoleAPIApiAxiosParamCreator = function (configuration?: Configurati
         create: async (roleRequest: RoleRequest, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'roleRequest' is not null or undefined
             assertParamExists('create', 'roleRequest', roleRequest)
-            const localVarPath = `/roles`;
+            const localVarPath = `/identity`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -109,7 +109,7 @@ export const RoleAPIApiAxiosParamCreator = function (configuration?: Configurati
          * @throws {RequiredError}
          */
         getAll: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            const localVarPath = `/roles`;
+            const localVarPath = `/identity/roles`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;

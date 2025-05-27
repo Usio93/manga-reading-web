@@ -39,7 +39,7 @@ export const ExternalAPIForFavouriteServiceApiAxiosParamCreator = function (conf
         getCountByBookId: async (bookId: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'bookId' is not null or undefined
             assertParamExists('getCountByBookId', 'bookId', bookId)
-            const localVarPath = `/external/count/{bookId}`
+            const localVarPath = `/favourite/external/count/{bookId}`
                 .replace(`{${"bookId"}}`, encodeURIComponent(String(bookId)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);

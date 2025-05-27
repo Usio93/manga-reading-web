@@ -46,7 +46,7 @@ export const ExternalCommentControllerApiAxiosParamCreator = function (configura
         _delete: async (id: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'id' is not null or undefined
             assertParamExists('_delete', 'id', id)
-            const localVarPath = `/external/{id}`
+            const localVarPath = `/comment/external/{id}`
                 .replace(`{${"id"}}`, encodeURIComponent(String(id)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -79,7 +79,7 @@ export const ExternalCommentControllerApiAxiosParamCreator = function (configura
         createReply: async (commentReplyRequest: CommentReplyRequest, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'commentReplyRequest' is not null or undefined
             assertParamExists('createReply', 'commentReplyRequest', commentReplyRequest)
-            const localVarPath = `/external/reply`;
+            const localVarPath = `/comment/external/reply`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -114,7 +114,7 @@ export const ExternalCommentControllerApiAxiosParamCreator = function (configura
         createRoot: async (commentRootRequest: CommentRootRequest, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'commentRootRequest' is not null or undefined
             assertParamExists('createRoot', 'commentRootRequest', commentRootRequest)
-            const localVarPath = `/external/root`;
+            const localVarPath = `/comment/external/root`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -149,7 +149,7 @@ export const ExternalCommentControllerApiAxiosParamCreator = function (configura
         getReplies: async (id: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'id' is not null or undefined
             assertParamExists('getReplies', 'id', id)
-            const localVarPath = `/external/{id}/replies`
+            const localVarPath = `/comment/external/{id}/replies`
                 .replace(`{${"id"}}`, encodeURIComponent(String(id)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -185,7 +185,7 @@ export const ExternalCommentControllerApiAxiosParamCreator = function (configura
             assertParamExists('update', 'id', id)
             // verify required parameter 'commentReplyRequest' is not null or undefined
             assertParamExists('update', 'commentReplyRequest', commentReplyRequest)
-            const localVarPath = `/external/{id}`
+            const localVarPath = `/comment/external/{id}`
                 .replace(`{${"id"}}`, encodeURIComponent(String(id)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);

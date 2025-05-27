@@ -52,7 +52,7 @@ export const InternalUserProfileControllerApiAxiosParamCreator = function (confi
         changeAvatar: async (userProfileChangeAvatarRequest: UserProfileChangeAvatarRequest, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'userProfileChangeAvatarRequest' is not null or undefined
             assertParamExists('changeAvatar', 'userProfileChangeAvatarRequest', userProfileChangeAvatarRequest)
-            const localVarPath = `/internal/change-avatar`;
+            const localVarPath = `/profile/internal/change-avatar`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -87,7 +87,7 @@ export const InternalUserProfileControllerApiAxiosParamCreator = function (confi
         createUserProfile: async (userProfileCreationRequest: UserProfileCreationRequest, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'userProfileCreationRequest' is not null or undefined
             assertParamExists('createUserProfile', 'userProfileCreationRequest', userProfileCreationRequest)
-            const localVarPath = `/internal/create`;
+            const localVarPath = `/profile/internal/create`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -122,7 +122,7 @@ export const InternalUserProfileControllerApiAxiosParamCreator = function (confi
         deleteUserProfile: async (userId: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'userId' is not null or undefined
             assertParamExists('deleteUserProfile', 'userId', userId)
-            const localVarPath = `/internal/delete/{userId}`
+            const localVarPath = `/profile/internal/delete/{userId}`
                 .replace(`{${"userId"}}`, encodeURIComponent(String(userId)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -155,7 +155,7 @@ export const InternalUserProfileControllerApiAxiosParamCreator = function (confi
         getUserReadingHistory: async (userId: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'userId' is not null or undefined
             assertParamExists('getUserReadingHistory', 'userId', userId)
-            const localVarPath = `/internal/get-reading-history/{userId}`
+            const localVarPath = `/profile/internal/get-reading-history/{userId}`
                 .replace(`{${"userId"}}`, encodeURIComponent(String(userId)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -188,7 +188,7 @@ export const InternalUserProfileControllerApiAxiosParamCreator = function (confi
         updateUserProfile: async (userProfileUpdateRequest: UserProfileUpdateRequest, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'userProfileUpdateRequest' is not null or undefined
             assertParamExists('updateUserProfile', 'userProfileUpdateRequest', userProfileUpdateRequest)
-            const localVarPath = `/internal/update-user-profile`;
+            const localVarPath = `/profile/internal/update-user-profile`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;

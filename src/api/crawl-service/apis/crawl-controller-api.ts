@@ -40,7 +40,7 @@ export const CrawlControllerApiAxiosParamCreator = function (configuration?: Con
         crawl: async (metadata: Metadata, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'metadata' is not null or undefined
             assertParamExists('crawl', 'metadata', metadata)
-            const localVarPath = `/crawl`;
+            const localVarPath = `/crawl/crawl`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;

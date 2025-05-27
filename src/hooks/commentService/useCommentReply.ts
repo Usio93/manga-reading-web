@@ -32,10 +32,17 @@ const invalidateAndToast = (
 // Tạo bình luận gốc
 export const useCreateRootComment = (invalidateKeys: unknown[]) => {
     const queryClient = useQueryClient();
+
     return useMutation<ApiResponseCommentResponse, Error, CommentRootRequest>({
-        mutationFn: (data) =>
-            externalApi.createRoot({ commentRootRequest: data }).then((res) => res.data),
+        mutationFn: (data) => {
+            const api = ExternalCommentControllerApiFactory(createPrivateServiceConfig("comment"));
+            return api.createRoot({ commentRootRequest: data }).then((res) => res.data);
+        },
         onSuccess: invalidateAndToast("Bình luận đã được tạo", queryClient, invalidateKeys),
+        onError: (error) => {
+            console.error("Lỗi tạo comment:", error);
+            showToast(error.message ?? "Không gửi được bình luận", "error");
+        },
     });
 };
 

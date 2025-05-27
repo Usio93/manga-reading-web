@@ -40,7 +40,7 @@ export const HistoryRecordControllerApiAxiosParamCreator = function (configurati
         getRecordByUserId: async (userId: string, page?: number, size?: number, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'userId' is not null or undefined
             assertParamExists('getRecordByUserId', 'userId', userId)
-            const localVarPath = `/record/{userId}`
+            const localVarPath = `/history/record/{userId}`
                 .replace(`{${"userId"}}`, encodeURIComponent(String(userId)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);

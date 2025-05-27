@@ -40,7 +40,7 @@ export const InternalHistoryRecordControllerApiAxiosParamCreator = function (con
         saveRecord: async (recordRequest: RecordRequest, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'recordRequest' is not null or undefined
             assertParamExists('saveRecord', 'recordRequest', recordRequest)
-            const localVarPath = `/internal/save-record`;
+            const localVarPath = `/history/internal/save-record`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;

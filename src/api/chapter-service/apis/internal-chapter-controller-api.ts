@@ -45,7 +45,7 @@ export const InternalChapterControllerApiAxiosParamCreator = function (configura
             assertParamExists('createChapter', 'bookId', bookId)
             // verify required parameter 'chapterRequest' is not null or undefined
             assertParamExists('createChapter', 'chapterRequest', chapterRequest)
-            const localVarPath = `/internal/{bookId}/add`
+            const localVarPath = `/chapter/internal/{bookId}/add`
                 .replace(`{${"bookId"}}`, encodeURIComponent(String(bookId)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -81,7 +81,7 @@ export const InternalChapterControllerApiAxiosParamCreator = function (configura
         deleteChapter: async (id: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'id' is not null or undefined
             assertParamExists('deleteChapter', 'id', id)
-            const localVarPath = `/internal/delete/{id}`
+            const localVarPath = `/chapter/internal/delete/{id}`
                 .replace(`{${"id"}}`, encodeURIComponent(String(id)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -114,7 +114,7 @@ export const InternalChapterControllerApiAxiosParamCreator = function (configura
         deleteChaptersByBookId: async (bookId: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'bookId' is not null or undefined
             assertParamExists('deleteChaptersByBookId', 'bookId', bookId)
-            const localVarPath = `/internal/delete/book/{bookId}`
+            const localVarPath = `/chapter/internal/delete/book/{bookId}`
                 .replace(`{${"bookId"}}`, encodeURIComponent(String(bookId)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -150,7 +150,7 @@ export const InternalChapterControllerApiAxiosParamCreator = function (configura
             assertParamExists('updateChapter', 'id', id)
             // verify required parameter 'chapterRequest' is not null or undefined
             assertParamExists('updateChapter', 'chapterRequest', chapterRequest)
-            const localVarPath = `/internal/update/{id}`
+            const localVarPath = `/chapter/internal/update/{id}`
                 .replace(`{${"id"}}`, encodeURIComponent(String(id)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);

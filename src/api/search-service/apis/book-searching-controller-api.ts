@@ -38,7 +38,7 @@ export const BookSearchingControllerApiAxiosParamCreator = function (configurati
         autocompleteTitle: async (prefix: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'prefix' is not null or undefined
             assertParamExists('autocompleteTitle', 'prefix', prefix)
-            const localVarPath = `/search/autocomplete`;
+            const localVarPath = `/search/search/autocomplete`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -71,7 +71,7 @@ export const BookSearchingControllerApiAxiosParamCreator = function (configurati
          * @throws {RequiredError}
          */
         getAll: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            const localVarPath = `/search/all`;
+            const localVarPath = `/search/search/all`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -103,7 +103,7 @@ export const BookSearchingControllerApiAxiosParamCreator = function (configurati
         getBookByCategories: async (categories: Array<string>, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'categories' is not null or undefined
             assertParamExists('getBookByCategories', 'categories', categories)
-            const localVarPath = `/search/categories`;
+            const localVarPath = `/search/search/categories`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -139,7 +139,7 @@ export const BookSearchingControllerApiAxiosParamCreator = function (configurati
         getBookByTitle: async (title: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'title' is not null or undefined
             assertParamExists('getBookByTitle', 'title', title)
-            const localVarPath = `/search/title`;
+            const localVarPath = `/search/search/title`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -175,7 +175,7 @@ export const BookSearchingControllerApiAxiosParamCreator = function (configurati
         getBooksByAuthor: async (author: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'author' is not null or undefined
             assertParamExists('getBooksByAuthor', 'author', author)
-            const localVarPath = `/search/author`;
+            const localVarPath = `/search/search/author`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;

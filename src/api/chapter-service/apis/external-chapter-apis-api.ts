@@ -43,7 +43,7 @@ export const ExternalChapterAPIsApiAxiosParamCreator = function (configuration?:
         countChaptersByBookId: async (bookId: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'bookId' is not null or undefined
             assertParamExists('countChaptersByBookId', 'bookId', bookId)
-            const localVarPath = `/chapters/book/{bookId}/count`
+            const localVarPath = `/chapter/chapters/book/{bookId}/count`
                 .replace(`{${"bookId"}}`, encodeURIComponent(String(bookId)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -80,7 +80,7 @@ export const ExternalChapterAPIsApiAxiosParamCreator = function (configuration?:
             assertParamExists('getChapterByBookIdAndNumber', 'bookId', bookId)
             // verify required parameter 'chapterNumber' is not null or undefined
             assertParamExists('getChapterByBookIdAndNumber', 'chapterNumber', chapterNumber)
-            const localVarPath = `/chapters/book/{bookId}/number/{chapterNumber}`
+            const localVarPath = `/chapter/chapters/book/{bookId}/number/{chapterNumber}`
                 .replace(`{${"bookId"}}`, encodeURIComponent(String(bookId)))
                 .replace(`{${"chapterNumber"}}`, encodeURIComponent(String(chapterNumber)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -118,7 +118,7 @@ export const ExternalChapterAPIsApiAxiosParamCreator = function (configuration?:
             assertParamExists('getChapterById', 'bookId', bookId)
             // verify required parameter 'chapterId' is not null or undefined
             assertParamExists('getChapterById', 'chapterId', chapterId)
-            const localVarPath = `/chapters/{bookId}/{chapterId}`
+            const localVarPath = `/chapter/chapters/{bookId}/{chapterId}`
                 .replace(`{${"bookId"}}`, encodeURIComponent(String(bookId)))
                 .replace(`{${"chapterId"}}`, encodeURIComponent(String(chapterId)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -153,7 +153,7 @@ export const ExternalChapterAPIsApiAxiosParamCreator = function (configuration?:
         getChaptersByBookId: async (bookId: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'bookId' is not null or undefined
             assertParamExists('getChaptersByBookId', 'bookId', bookId)
-            const localVarPath = `/chapters/book/{bookId}`
+            const localVarPath = `/chapter/chapters/book/{bookId}`
                 .replace(`{${"bookId"}}`, encodeURIComponent(String(bookId)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -187,7 +187,7 @@ export const ExternalChapterAPIsApiAxiosParamCreator = function (configuration?:
         getLastChapterByBookId: async (bookId: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'bookId' is not null or undefined
             assertParamExists('getLastChapterByBookId', 'bookId', bookId)
-            const localVarPath = `/chapters/book/{bookId}/last`
+            const localVarPath = `/chapter/chapters/book/{bookId}/last`
                 .replace(`{${"bookId"}}`, encodeURIComponent(String(bookId)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);

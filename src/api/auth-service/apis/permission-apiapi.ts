@@ -45,7 +45,7 @@ export const PermissionAPIApiAxiosParamCreator = function (configuration?: Confi
         createPermission: async (permissionRequest: PermissionRequest, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'permissionRequest' is not null or undefined
             assertParamExists('createPermission', 'permissionRequest', permissionRequest)
-            const localVarPath = `/permissions`;
+            const localVarPath = `/identity/permissions`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -81,7 +81,7 @@ export const PermissionAPIApiAxiosParamCreator = function (configuration?: Confi
         deletePermission: async (permissionId: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'permissionId' is not null or undefined
             assertParamExists('deletePermission', 'permissionId', permissionId)
-            const localVarPath = `/permissions/{permissionId}`
+            const localVarPath = `/identity/permissions/{permissionId}`
                 .replace(`{${"permissionId"}}`, encodeURIComponent(String(permissionId)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -112,7 +112,7 @@ export const PermissionAPIApiAxiosParamCreator = function (configuration?: Confi
          * @throws {RequiredError}
          */
         findAllPermissions: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            const localVarPath = `/permissions`;
+            const localVarPath = `/identity/permissions`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;

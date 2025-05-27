@@ -51,7 +51,7 @@ export const InternalAPIForFavouriteServiceApiAxiosParamCreator = function (conf
         addBookToFavourite: async (bookAddRequest: BookAddRequest, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'bookAddRequest' is not null or undefined
             assertParamExists('addBookToFavourite', 'bookAddRequest', bookAddRequest)
-            const localVarPath = `/internal/add`;
+            const localVarPath = `/favourite/internal/add`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -87,7 +87,7 @@ export const InternalAPIForFavouriteServiceApiAxiosParamCreator = function (conf
         getFavouriteListByUserId: async (username: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'username' is not null or undefined
             assertParamExists('getFavouriteListByUserId', 'username', username)
-            const localVarPath = `/internal/get-favourite-list/{username}`
+            const localVarPath = `/favourite/internal/get-favourite-list/{username}`
                 .replace(`{${"username"}}`, encodeURIComponent(String(username)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -124,7 +124,7 @@ export const InternalAPIForFavouriteServiceApiAxiosParamCreator = function (conf
             assertParamExists('isFavourite', 'username', username)
             // verify required parameter 'bookId' is not null or undefined
             assertParamExists('isFavourite', 'bookId', bookId)
-            const localVarPath = `/internal/is-favourite`;
+            const localVarPath = `/favourite/internal/is-favourite`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -165,7 +165,7 @@ export const InternalAPIForFavouriteServiceApiAxiosParamCreator = function (conf
         removeAllFavouritesByBookId: async (bookId: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'bookId' is not null or undefined
             assertParamExists('removeAllFavouritesByBookId', 'bookId', bookId)
-            const localVarPath = `/internal/remove-all-by-book/{bookId}`
+            const localVarPath = `/favourite/internal/remove-all-by-book/{bookId}`
                 .replace(`{${"bookId"}}`, encodeURIComponent(String(bookId)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -199,7 +199,7 @@ export const InternalAPIForFavouriteServiceApiAxiosParamCreator = function (conf
         removeAllFavouritesByUser: async (username: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'username' is not null or undefined
             assertParamExists('removeAllFavouritesByUser', 'username', username)
-            const localVarPath = `/internal/remove-all-by-user/{username}`
+            const localVarPath = `/favourite/internal/remove-all-by-user/{username}`
                 .replace(`{${"username"}}`, encodeURIComponent(String(username)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -233,7 +233,7 @@ export const InternalAPIForFavouriteServiceApiAxiosParamCreator = function (conf
         removeBookFromFavourite: async (bookRemoveRequest: BookRemoveRequest, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'bookRemoveRequest' is not null or undefined
             assertParamExists('removeBookFromFavourite', 'bookRemoveRequest', bookRemoveRequest)
-            const localVarPath = `/internal/remove`;
+            const localVarPath = `/favourite/internal/remove`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;

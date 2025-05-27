@@ -38,7 +38,7 @@ export const UserProfileControllerApiAxiosParamCreator = function (configuration
         getUserProfileById: async (id: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'id' is not null or undefined
             assertParamExists('getUserProfileById', 'id', id)
-            const localVarPath = `/info/profile/{id}`
+            const localVarPath = `/profile/info/profile/{id}`
                 .replace(`{${"id"}}`, encodeURIComponent(String(id)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);

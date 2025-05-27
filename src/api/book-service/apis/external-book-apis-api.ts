@@ -38,7 +38,7 @@ export const ExternalBookAPIsApiAxiosParamCreator = function (configuration?: Co
          * @throws {RequiredError}
          */
         getAllBooks: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            const localVarPath = `/books/all`;
+            const localVarPath = `/book/books/all`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -71,7 +71,7 @@ export const ExternalBookAPIsApiAxiosParamCreator = function (configuration?: Co
         getBookById: async (id: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'id' is not null or undefined
             assertParamExists('getBookById', 'id', id)
-            const localVarPath = `/books/{id}`
+            const localVarPath = `/book/books/{id}`
                 .replace(`{${"id"}}`, encodeURIComponent(String(id)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -102,7 +102,7 @@ export const ExternalBookAPIsApiAxiosParamCreator = function (configuration?: Co
          * @throws {RequiredError}
          */
         getBooksOrderByCreatedDateDesc: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            const localVarPath = `/books/by-created-date`;
+            const localVarPath = `/book/books/by-created-date`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -132,7 +132,7 @@ export const ExternalBookAPIsApiAxiosParamCreator = function (configuration?: Co
          * @throws {RequiredError}
          */
         getBooksOrderByViewCountDesc: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            const localVarPath = `/books/by-view-count`;
+            const localVarPath = `/book/books/by-view-count`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;

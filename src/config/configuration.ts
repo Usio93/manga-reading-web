@@ -2,8 +2,8 @@ import { Configuration } from "../api/auth-service";
 import { store } from "../store";
 
 const SERVICE_PATH_MAP: Record<string, string> = {
-    auth: "/identity",
     book: "/book",
+    auth: "/identity",
     bookmark: "/bookmark",
     chapter: "/chapter",
     comment: "/comment",

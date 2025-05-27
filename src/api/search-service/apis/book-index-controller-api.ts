@@ -40,7 +40,7 @@ export const BookIndexControllerApiAxiosParamCreator = function (configuration?:
         updateBook: async (bookIndexUpdateRequest: BookIndexUpdateRequest, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'bookIndexUpdateRequest' is not null or undefined
             assertParamExists('updateBook', 'bookIndexUpdateRequest', bookIndexUpdateRequest)
-            const localVarPath = `/indexing/update_book`;
+            const localVarPath = `/search/indexing/update_book`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
