@@ -43,7 +43,7 @@ const SearchDropdown: React.FC<Props> = ({ books, search, isLoading, onSelect })
         <div className={`search-results-dropdown ${isScrolled ? "scrolled" : ""}`}>
             {books.map((book) => (
                 <Link
-                    to={`/book/${book.id}`}
+                    to={`/book/review/${book.id}`}
                     className="search-result-item"
                     key={book.id}
                     onClick={onSelect}

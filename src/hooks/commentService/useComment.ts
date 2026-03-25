@@ -17,6 +17,7 @@ const publicApi = new CommentControllerApi(
     createPublicServiceConfig("comment"),
     undefined,
     publicAxios
+
 );
 
 // 🔐 Private API client – có token + interceptor
@@ -24,6 +25,7 @@ const privateApi = new CommentControllerApi(
     createPrivateServiceConfig("comment"),
     undefined,
     privateAxios
+
 );
 
 // ✅ Reuse hàm tiện ích invalidate + toast

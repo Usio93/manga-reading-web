@@ -9,13 +9,7 @@ const MovingImages = () => {
     const { data, isLoading, error } = useGetAllBooks();
     const [currentIndex, setCurrentIndex] = useState(0);
 
-
-    if (isLoading) return <div>Loading...</div>;
-    if (error) return <div>Error: {error.message}</div>;
-
     const rawBooks = data?.data || [];
-    console.log("Danh sách sách:", rawBooks);
-
     const mappedBooks = rawBooks.map((book) => ({
         id: book.id,
         title: book.title,
@@ -25,12 +19,9 @@ const MovingImages = () => {
         episodes: `${book.chapterCount}/?`,
         Images: book.coverUrl ? [book.coverUrl] : [defaultAvatars],
     }));
-    console.log("Dữ liệu sách:", data);
+
     const topFiveBooks = mappedBooks.slice(0, 5);
     const currentData = topFiveBooks[currentIndex];
-
-
-
 
     useEffect(() => {
         const interval = setInterval(() => {
@@ -42,7 +33,8 @@ const MovingImages = () => {
     }, [topFiveBooks.length]);
 
 
-
+    if (isLoading) return <div>Loading...</div>;
+    if (error) return <div>Error: {error.message}</div>;
     if (!currentData || !currentData.previewImages || currentData.previewImages.length === 0) {
         return <div>No preview available</div>;
     }

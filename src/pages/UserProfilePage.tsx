@@ -66,16 +66,7 @@ const UserProfile: React.FC = () => {
                     onScroll={(dir) => handleScroll("fav", dir)}
                 />
 
-                {isLoadingHistory ? (
-                    <div>Đang tải lịch sử đọc...</div>
-                ) : (
-                    <UserScrollList
-                        title="📖 History:"
-                        items={historyItems}
-                        index={hisIndex}
-                        onScroll={(dir) => handleScroll("his", dir)}
-                    />
-                )}
+
             </div>
         </div>
     );

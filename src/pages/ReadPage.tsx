@@ -56,6 +56,7 @@ const ReadingForm = () => {
 
     return (
         <div className="reading-container">
+            <Navbar/>
 
             <div className="chapter-navigation-big">
                 <div className="chapter-navigation">
@@ -104,7 +105,9 @@ const ReadingForm = () => {
                     <div className="chapter-content">{chapter.content}</div>
                 )}
 
-                <CommentSection chapterId={chapter.id ? Number(chapter.id) : 0} />
+                <CommentSection chapterId={chapter.id ? String(chapter.id) : ''} />
+
+
 
             </div>
         </div>

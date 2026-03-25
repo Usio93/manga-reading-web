@@ -77,10 +77,7 @@ const Navbar: React.FC = () => {
                                 </div>
                             </li>
                         </div>
-                        <li><Link to="/admin/create">create book</Link></li>
-                        <li><Link to="/user/profile">userprofile</Link></li>
-                        <li><Link to="/book/review">book detail</Link></li>
-                        <li><Link to="/admin/profile">admin profile</Link></li>
+
                     </ul>
                     <div className="search-container" style={{ position: "relative" }}>
                         <input
@@ -112,7 +109,7 @@ const Navbar: React.FC = () => {
                                 />
                                 <div className={`dropdown ${hovering ? "show" : ""}`}>
                                     <span className="dropdown-item">{user.name || user.username}</span>
-                                    <Link to={`/user/${user.username}`} className="dropdown-item" state={{ user }}>
+                                    <Link to={`/user/profile/${user.username}`} className="dropdown-item" state={{ user }}>
                                         Tài khoản
                                     </Link>
                                     <button onClick={handleLogout} className="dropdown-item">

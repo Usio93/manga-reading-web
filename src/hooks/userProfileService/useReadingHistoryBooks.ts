@@ -6,11 +6,13 @@ import { useMemo } from "react";
 import { BookResponse, ApiResponseBookResponse } from "../../api/book-service";
 
 export interface MangaItem {
+    id: string;
     title: string;
     thumbnail: string;
 }
 
 const mapBookToMangaItem = (book: BookResponse): MangaItem => ({
+    id: book.id ?? "",
     title: book.title ?? "Không rõ tiêu đề",
     thumbnail: book.coverUrl ?? "/fallback.jpg",
 });

@@ -1,37 +1,32 @@
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+// mockComments.ts
+export interface MockReply {
+    id: number;
+    content: string;
+}
 
-let mockComments = [
-    { id: 1, content: "So good!", chapterId: 0 },
-    { id: 2, content: "This part is really touching.", chapterId: 0 },
-    { id: 3, content: "Looking forward to the next chapter.", chapterId: 0 },
+export interface MockComment {
+    id: number;
+    content: string;
+    replies: MockReply[];
+}
 
+export const mockComments: MockComment[] = [
+    {
+        id: 1,
+        content: "This chapter is amazing!",
+        replies: [
+            { id: 101, content: "Totally agree!" },
+            { id: 102, content: "Loved the twist." }
+        ]
+    },
+    {
+        id: 2,
+        content: "Why is the MC so OP?",
+        replies: [{ id: 103, content: "Because plot armor 😅" }]
+    },
+    {
+        id: 3,
+        content: "Can't wait for the next update!",
+        replies: []
+    },
 ];
-
-export const useCommentsByChapterId = (chapterId: number) => {
-    return useQuery({
-        queryKey: ["comments", chapterId],
-        queryFn: async () => {
-            const result = mockComments.filter(c => c.chapterId === chapterId);
-            return { result };
-        },
-    });
-};
-
-export const useCreateComment = (queryKey: any[]) => {
-    const queryClient = useQueryClient();
-
-    return useMutation({
-        mutationFn: async ({ chapterId, content }: { chapterId: number; content: string }) => {
-            const newComment = {
-                id: Date.now(),
-                chapterId,
-                content,
-            };
-            mockComments.push(newComment);
-            return newComment;
-        },
-        onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey });
-        },
-    });
-};

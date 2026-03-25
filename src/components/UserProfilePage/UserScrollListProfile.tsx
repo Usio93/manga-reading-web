@@ -2,7 +2,10 @@
     import React from 'react';
     import { Link } from "react-router-dom";
 
+
+
     interface MangaItem {
+        id: string;            // thêm id để dẫn link chính xác
         title: string;
         thumbnail: string;
     }
@@ -20,7 +23,7 @@
         const renderMangaList = () => {
             return items.slice(index, index + visibleCount).map((item, idx) => (
                 <div className="scroll-item" key={idx}>
-                    <Link to="/book/review">
+                    <Link to={`/book/review/${item.id}`}>
                         <div className="img-box">
                             <img src={item.thumbnail} alt={item.title} />
                         </div>

@@ -3,7 +3,7 @@ import BookDetailsPage from "../pages/CreateChaptersBookPage";
 import ReviewPage from "../pages/Review";
 
 import AdminProfile from "../pages/AdminProfile";
-import UserProfile from "../pages/UserProfilePage";
+import UserProfile from "../pages/UserProfilePage"
 
 export const privateRoutes = [
     { path: "/admin/create", component: CreateBookForm, roles: ["admin"] },
@@ -11,5 +11,5 @@ export const privateRoutes = [
     { path: "/admin/review", component: ReviewPage, roles: ["admin"] },
 
     { path: "/admin/profile", component: AdminProfile, roles: ["admin"] },
-    { path: "/user/profile", component: UserProfile },
+    { path: "/user/profile/:username", component: UserProfile },
 ];

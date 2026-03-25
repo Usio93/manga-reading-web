@@ -5,32 +5,50 @@ import { RootState } from '../../store/index';
 import avatarImg from '../../assets/default_avatar.jpg';
 
 
-import {useCommentsByChapterId, useCreateComment,} from '../../hooks/commentService/useComment'; // your hook file path
-import {useCreateReplyComment,useRepliesByCommentId,} from '../../hooks/commentService/useCommentReply'; // your hook file path
+import {useCommentsByChapterId,} from '../../hooks/commentService/useComment'; // your hook file path
+import {useCreateReplyComment,useRepliesByCommentId,useCreateRootComment,} from '../../hooks/commentService/useCommentReply'; // your hook file path
 
 
+import { mockComments, MockComment } from '../../mocks/useComment';
 
 interface CommentSectionProps {
-    chapterId: number;
+    chapterId: string;
 }
 
 const CommentSection: React.FC<CommentSectionProps> = ({ chapterId }) => {
     const [newComment, setNewComment] = useState('');
+    const [comments, setComments] = useState<MockComment[]>(mockComments);
     const [expanded, setExpanded] = useState(false);
-    const username = useSelector((state: RootState) => state.user.profile?.name || 'Anonymous');
 
-    const { data, isLoading } = useCommentsByChapterId(chapterId);
-    const comments = data?.result || [];
-
-    const createCommentMutation = useCreateComment(['comments', 'chapter', chapterId]);
+    const username = 'MockUser';
 
     const handleAddComment = () => {
         if (!newComment.trim()) return;
-        createCommentMutation.mutate({
-            chapterId,
+
+        const newId = comments.length + 1;
+        const newMockComment: MockComment = {
+            id: newId,
             content: newComment,
-        });
+            replies: [],
+        };
+
+        setComments([newMockComment, ...comments]);
         setNewComment('');
+    };
+
+    const handleAddReply = (commentId: number, replyContent: string) => {
+        const updated = comments.map(comment =>
+            comment.id === commentId
+                ? {
+                    ...comment,
+                    replies: [
+                        ...comment.replies,
+                        { id: Date.now(), content: replyContent },
+                    ],
+                }
+                : comment
+        );
+        setComments(updated);
     };
 
     const visibleComments = expanded ? comments : comments.slice(0, 3);
@@ -39,29 +57,23 @@ const CommentSection: React.FC<CommentSectionProps> = ({ chapterId }) => {
         <div className="comments">
             <h3>Comments</h3>
             <div className="comment-box">
-                <textarea
-                    placeholder="Write a comment..."
-                    value={newComment}
-                    onChange={(e) => setNewComment(e.target.value)}
-                />
-                <button onClick={handleAddComment} disabled={createCommentMutation.isPending}>
-                    {createCommentMutation.isPending ? 'Loading...' : 'Post'}
-                </button>
+        <textarea
+            placeholder="Write a comment..."
+            value={newComment}
+            onChange={(e) => setNewComment(e.target.value)}
+        />
+                <button onClick={handleAddComment}>Post</button>
             </div>
 
             <div className="comment-list">
-                {isLoading ? (
-                    <p>Đang tải bình luận...</p>
-                ) : (
-                    visibleComments.map((comment: any) => (
-                        <CommentItem
-                            key={comment.id}
-                            comment={comment}
-                            chapterId={chapterId}
-                            username={username}
-                        />
-                    ))
-                )}
+                {visibleComments.map((comment) => (
+                    <CommentItem
+                        key={comment.id}
+                        comment={comment}
+                        username={username}
+                        onReply={handleAddReply}
+                    />
+                ))}
             </div>
 
             {comments.length > 3 && (
@@ -75,51 +87,49 @@ const CommentSection: React.FC<CommentSectionProps> = ({ chapterId }) => {
     );
 };
 
-const CommentItem: React.FC<{
-    comment: { id: number; content: string };
-    chapterId: number;
+interface CommentItemProps {
+    comment: MockComment;
     username: string;
-}> = ({ comment, chapterId, username }) => {
+    onReply: (commentId: number, replyContent: string) => void;
+}
+
+const CommentItem: React.FC<CommentItemProps> = ({
+                                                     comment,
+                                                     username,
+                                                     onReply,
+                                                 }) => {
     const [replyInput, setReplyInput] = useState('');
     const [expandedReply, setExpandedReply] = useState(false);
 
-    const { data: repliesData } = useRepliesByCommentId(String(comment.id));
-    const replies = repliesData?.result || [];
-
-    const createReplyMutation = useCreateReplyComment(['comments', 'chapter', chapterId]);
-
     const handleReply = () => {
         if (!replyInput.trim()) return;
-        createReplyMutation.mutate({
-            parentId: comment.id.toString(),
-            content: replyInput,
-            username,
-        });
+        onReply(comment.id, replyInput);
         setReplyInput('');
     };
 
-    const visibleReplies = expandedReply ? replies : replies.slice(0, 1);
+    const visibleReplies = expandedReply
+        ? comment.replies
+        : comment.replies.slice(0, 1);
 
     return (
         <div className="comment-item">
             <div className="main-comment">
-                <img src={avatarImg} alt="Avatar" className="avatar"/>
-
+                <img src={avatarImg} alt="Avatar" className="avatar" />
                 <div className="comment-text">{comment.content}</div>
             </div>
 
             <div className="reply-list">
-                {visibleReplies.map((reply: any) => (
+                {visibleReplies.map((reply) => (
                     <div key={reply.id} className="reply-item">
-                        <img src={avatarImg} alt="Avatar"  className="avatar small" />
+                        <img src={avatarImg} alt="Avatar" className="avatar small" />
                         <div className="reply-text">{reply.content}</div>
                     </div>
                 ))}
 
-                {replies.length > 1 && (
+                {comment.replies.length > 1 && (
                     <div className="expand-toggle reply-toggle">
                         <button onClick={() => setExpandedReply(!expandedReply)}>
-                            {expandedReply ? 'Hide reply..' : 'Show more reply..'}
+                            {expandedReply ? 'Hide replies' : 'Show more replies'}
                         </button>
                     </div>
                 )}
@@ -132,9 +142,7 @@ const CommentItem: React.FC<{
                     value={replyInput}
                     onChange={(e) => setReplyInput(e.target.value)}
                 />
-                <button onClick={handleReply} disabled={createReplyMutation.isPending}>
-                    {createReplyMutation.isPending ? 'Đang gửi...' : 'Reply'}
-                </button>
+                <button onClick={handleReply}>Reply</button>
             </div>
         </div>
     );
