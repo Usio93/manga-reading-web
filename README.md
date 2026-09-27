@@ -169,7 +169,7 @@ manga-reading-web/
 
 ---
 
-## ⚙️ Installation
+##  Installation
 
 ### 1. Clone the repository
 
@@ -203,7 +203,7 @@ http://localhost:5173
 
 ---
 
-## 📦 Build
+##  Build
 
 Create a production build:
 
@@ -219,7 +219,7 @@ npm run preview
 
 ---
 
-## 🔌 API Client Generation
+##  API Client Generation
 
 The project uses **OpenAPI Generator** to generate TypeScript API clients from backend services.
 
@@ -263,7 +263,7 @@ These commands generate TypeScript Axios clients based on the OpenAPI documentat
 
 ---
 
-## 🔄 Application Flow
+##  Application Flow
 
 A typical user flow:
 
@@ -299,7 +299,7 @@ Publish / Display
 
 ---
 
-## 🎯 Project Purpose
+##  Project Purpose
 
 The purpose of this project is to practice and demonstrate:
 
@@ -317,7 +317,7 @@ The purpose of this project is to practice and demonstrate:
 
 ---
 
-## 💡 What I Learned
+##  What I Learned
 
 Through this project, I gained practical experience with:
 
@@ -336,7 +336,7 @@ Through this project, I gained practical experience with:
 
 ---
 
-## 🔮 Future Improvements
+##  Future Improvements
 
 Possible improvements include:
 
@@ -351,12 +351,3 @@ Possible improvements include:
 - Add CI/CD pipeline
 - Deploy the application publicly
 
----
-
-
-
-If you find this project useful or interesting, feel free to give it a ⭐ on GitHub.
-
----
-
-> This project was developed for learning, portfolio building, and demonstrating practical frontend development skills with React, TypeScript, REST APIs, and microservices.
